@@ -7,14 +7,14 @@ namespace Notebook2.ViewModel
     {
         [Required]
         [Display(Name = "Логин")]
-        [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", 
-            ErrorMessage = "E-mail id is not valid")]
+        [RegularExpression("^[a-zA-Z0-9_.]{4,}$", 
+            ErrorMessage = "Логин должен иметь длинну 4 симолов.\n" +
+            "Разрешенные символы: (латинские буквы) (цифры) _ -")]
         public string Login { get; set; }
 
         [Required]
-        [Display(Name = "Пароль")]
-        [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", 
-            ErrorMessage = "E-mail id is not valid")]
+        [RegularExpression("^[a-zA-Z0-9!@#$%^&*()_+{}\\[\\]:;\\\"'<>,.?/\\\\|\\-=`~]{6,}$",
+            ErrorMessage = "Пароль должен иметь длинну 6 симолов.")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
     }
