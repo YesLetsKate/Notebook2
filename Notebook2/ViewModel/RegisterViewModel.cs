@@ -33,6 +33,6 @@ namespace Notebook2.ViewModel
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        
+
     }
 }

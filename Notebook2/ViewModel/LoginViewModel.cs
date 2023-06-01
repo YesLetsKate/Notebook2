@@ -7,7 +7,7 @@ namespace Notebook2.ViewModel
     {
         [Required]
         [Display(Name = "Логин")]
-        [RegularExpression("^[a-zA-Z0-9_.]{4,}$", 
+        [RegularExpression("^[a-zA-Z0-9_.]{4,}$",
             ErrorMessage = "Логин должен иметь длинну 4 симолов.\n" +
             "Разрешенные символы: (латинские буквы) (цифры) _ -")]
         public string Login { get; set; }

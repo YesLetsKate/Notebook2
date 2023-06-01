@@ -36,7 +36,7 @@ namespace Notebook2.Service
             {
                 string query =
                     string.Format("select iduser from [passwords] where [login]='{0}'", login);
-                
+
                 SqlCommand cmd = new SqlCommand(query, conn);
                 try
                 {
@@ -53,6 +53,7 @@ namespace Notebook2.Service
             }
             return usersCount;
         }
+
         public async Task<ResponseModel> LoginData(LoginViewModel user)
         {
             ResponseModel response = new ResponseModel();
@@ -76,7 +77,7 @@ namespace Notebook2.Service
                     }
 
                     //Получение соли
-                    string query = string.Format("select salt from [passwords] where login='{0}'",user.Login);
+                    string query = string.Format("select salt from [passwords] where login='{0}'", user.Login);
                     SqlCommand cmd = new SqlCommand(query, conn);
                     string salt;
                     try
@@ -93,13 +94,13 @@ namespace Notebook2.Service
                     }
                     finally { conn.Close(); }
 
-                    string hash_password = CreateSHA256(user.Password+salt);
+                    string hash_password = CreateSHA256(user.Password + salt);
 
 
                     query = string.Format("Select * FROM [passwords],[users] " +
                         "WHERE [password] = '{0}' " +
                         "and [login]='{1}' and [users].iduser = [passwords].iduser",
-                        hash_password , user.Login);
+                        hash_password, user.Login);
                     cmd = new SqlCommand(query, conn);
 
                     try
@@ -155,17 +156,17 @@ namespace Notebook2.Service
         {
             ResponseModel response = new ResponseModel();
             if (user != null)
-            { 
+            {
                 using (SqlConnection conn = new SqlConnection(connectionstring))
                 {
                     //Проверка логина
                     int usersCount = CheckLogin(user.Login);
-                    if (usersCount > 1) 
+                    if (usersCount > 1)
                     {
                         response.resultCode = 101;
                         response.message = "Логин занят";
                         return response;
-                    } 
+                    }
                     else
                     {
                         response.resultCode = 100;
@@ -197,12 +198,12 @@ namespace Notebook2.Service
                         //Получение iduser
                         query = string.Format("SELECT SCOPE_IDENTITY()");
                         cmd = new SqlCommand(query, conn);
-                        
+
                         try
                         {
                             //cmd.ExecuteNonQuery();
                             iduser = Convert.ToInt32(cmd.ExecuteScalar().ToString());
-                            
+
                         }
                         catch (Exception ex)
                         {
@@ -219,8 +220,8 @@ namespace Notebook2.Service
                         conn.Close();
                         return response;
                     }
-                    
-                    
+
+
 
 
                     string salt = CreateSalt();//Генерация соли
@@ -252,7 +253,7 @@ namespace Notebook2.Service
                         response.message = "Какая-то ошибка";
                         return response;
                     }
-                    finally { conn.Close(); }                    
+                    finally { conn.Close(); }
                 }
             }
             return response;
